@@ -40,9 +40,9 @@ export class AppModule {
 
         const config: OpenIdConfiguration = {
             stsServer: configResult.customConfig.stsServer,
-            redirect_url: 'https://localhost:4200',
+            redirect_url: 'http://localhost:4200',
             client_id: 'angularClient',
-            scope: 'ap1 profile email',
+            scope: 'api1 openid profile email',
             response_type: 'code',
             silent_renew: true,
             silent_renew_url: 'https://localhost:4200/silent-renew.html',

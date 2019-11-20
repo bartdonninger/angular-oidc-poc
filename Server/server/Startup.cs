@@ -44,6 +44,7 @@ namespace server
             services.AddIdentityServer()
                 .AddInMemoryApiResources(Config.Apis)
                 .AddInMemoryClients(Config.Clients)
+                .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddDeveloperSigningCredential();     
         }
 
