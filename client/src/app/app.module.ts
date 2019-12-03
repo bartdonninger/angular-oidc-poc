@@ -45,7 +45,7 @@ export class AppModule {
             scope: 'api1 openid profile email',
             response_type: 'code',
             silent_renew: true,
-            silent_renew_url: 'https://localhost:4200/silent-renew.html',
+            silent_renew_url: 'http://localhost:4200/silent-renew.html',
             log_console_debug_active: true,
             // all other properties you want to set
         };

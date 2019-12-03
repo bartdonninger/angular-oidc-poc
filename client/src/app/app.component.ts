@@ -9,6 +9,8 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 export class AppComponent implements OnInit, OnDestroy{
   isAuthenticated: boolean;
     userData: any;
+    attrHref: any;
+    isCollapsed: boolean;
 
     constructor(public oidcSecurityService: OidcSecurityService) {
         if (this.oidcSecurityService.moduleSetup) {
@@ -33,7 +35,15 @@ export class AppComponent implements OnInit, OnDestroy{
     ngOnDestroy(): void {}
 
     login() {
-        this.oidcSecurityService.authorize();
+        // this.oidcSecurityService.authorize((authUrl) => {
+        //     // handle the authorrization URL
+        //     window.open(authUrl, '_blank', 'toolbar=0,location=0,menubar=0');
+        // });
+
+        this.oidcSecurityService.authorize((authUrl) => { 
+            this.attrHref = authUrl + '&from=iFrame'; 
+            this.isCollapsed = false; }
+            )
     }
 
     logout() {

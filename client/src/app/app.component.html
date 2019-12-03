@@ -9,3 +9,7 @@ Is Authenticated: {{ isAuthenticated }}
 <br />
 
 {{ userData | json }}
+
+<div *ngIf="isCollapsed">
+    <iframe #iframe width="420" height="345" [src]="attrHref" frameborder="1"> </iframe>
+</div>

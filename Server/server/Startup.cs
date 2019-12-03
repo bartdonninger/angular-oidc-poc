@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.Test;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using server.Controllers;
 
 namespace server
 {
@@ -41,10 +43,16 @@ namespace server
                     });
             });
 
-            services.AddIdentityServer()
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddIdentityServer(options =>
+                {
+                    options.Authentication.CookieLifetime = TimeSpan.FromSeconds(90);
+                })
                 .AddInMemoryApiResources(Config.Apis)
                 .AddInMemoryClients(Config.Clients)
                 .AddInMemoryIdentityResources(Config.IdentityResources)
+                .AddTestUsers(TestUsers.Users)
                 .AddDeveloperSigningCredential();     
         }
 
@@ -63,7 +71,11 @@ namespace server
 
             app.UseCors("AllowAllOrigins");
 
+            app.UseStaticFiles();
+
             app.UseIdentityServer();
+
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
